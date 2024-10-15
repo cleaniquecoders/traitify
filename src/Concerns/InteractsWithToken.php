@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Concerns;
+namespace CleaniqueCoders\Traitify\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
