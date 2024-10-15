@@ -22,7 +22,50 @@ composer require cleaniquecoders/traitify
 
 ## Usage
 
-See [Contracts](src/Contracts) and [Concerns](src/Concerns) for available interfaces and traits.
+This package provides a collection of reusable traits and contracts that can be easily integrated into your Laravel applications. You can use the traits to add common functionality to your models, controllers, or other classes, and the contracts to ensure consistent interfaces for your classes.
+
+### Traits
+
+Below are the available traits under the `src/Concerns` directory:
+
+- **InteractsWithApi**: Provides methods to interact with APIs.
+- **InteractsWithDetails**: Handles interactions with detailed data.
+- **InteractsWithEnum**: Facilitates the use of enums in your models or classes.
+- **InteractsWithMeta**: Provides functionality for managing meta fields.
+- **InteractsWithResourceRoute**: Adds support for handling resource routes.
+- **InteractsWithSearchable**: Adds searching capabilities to your models or queries.
+- **InteractsWithToken**: Handles operations related to tokens.
+- **InteractsWithUser**: Provides methods to interact with users.
+- **InteractsWithUuid**: Adds UUID support to your models or other classes.
+
+### Contracts
+
+Here are the available interfaces under the `src/Contracts` directory:
+
+- **Api**: Defines the structure for interacting with APIs.
+- **Builder**: Provides a contract for builder classes.
+- **Enum**: Ensures proper implementation of enums.
+- **Execute**: Defines an execution contract for action-based classes.
+- **Menu**: Provides a contract for building and managing menus.
+- **Processor**: Ensures the implementation of data processing workflows.
+
+### Example Usage
+
+You can easily incorporate these traits and contracts into your Laravel application like this:
+
+```php
+use CleaniqueCoders\Traitify\Concerns\InteractsWithApi;
+use CleaniqueCoders\Traitify\Contracts\Api;
+
+class ExampleClass implements Api
+{
+    use InteractsWithApi;
+
+    // Class logic here
+}
+```
+
+For a full list of traits and contracts and detailed usage examples, explore the [Contracts](src/Contracts) and [Concerns](src/Concerns) directories.
 
 ## Testing
 
