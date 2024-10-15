@@ -15,11 +15,6 @@ class TraitifyServiceProvider extends PackageServiceProvider
          *
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package
-            ->name('traitify')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_traitify_table')
-            ->hasCommand(TraitifyCommand::class);
+        $package->name('traitify');
     }
 }
