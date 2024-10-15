@@ -10,8 +10,8 @@ trait InteractsWithUser
     public static function bootInteractsWithUser()
     {
         static::creating(function ($model) {
-            if (Schema::hasColumn($model->getTable(), $this->getUserIdColumnName()) && is_null($model->user_id) && Auth::user()) {
-                $model->{$this->getUserIdColumnName()} = Auth::user()->id;
+            if (Schema::hasColumn($model->getTable(), $model->getUserIdColumnName()) && is_null($model->user_id) && Auth::user()) {
+                $model->{$model->getUserIdColumnName()} = Auth::user()->id;
             }
         });
     }
