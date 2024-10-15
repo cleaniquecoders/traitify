@@ -4,5 +4,5 @@ namespace CleaniqueCoders\Traitify\Contracts;
 
 interface Processor
 {
-    public function process();
+    public function process(): self;
 }

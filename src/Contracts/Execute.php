@@ -4,5 +4,5 @@ namespace CleaniqueCoders\Traitify\Contracts;
 
 interface Execute
 {
-    public function execute();
+    public function execute(): self;
 }
