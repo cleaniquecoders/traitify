@@ -2,9 +2,9 @@
 
 namespace CleaniqueCoders\Traitify;
 
+use CleaniqueCoders\Traitify\Commands\TraitifyCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use CleaniqueCoders\Traitify\Commands\TraitifyCommand;
 
 class TraitifyServiceProvider extends PackageServiceProvider
 {

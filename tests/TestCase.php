@@ -2,9 +2,9 @@
 
 namespace CleaniqueCoders\Traitify\Tests;
 
+use CleaniqueCoders\Traitify\TraitifyServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use CleaniqueCoders\Traitify\TraitifyServiceProvider;
 
 class TestCase extends Orchestra
 {
