@@ -2,6 +2,42 @@
 
 All notable changes to `Traitify` will be documented in this file.
 
+## v1.0.1 - 2024-10-16
+
+### Traitify v1.0.1 Release Notes
+
+**Release Date**: 15th October 2024
+
+This patch release focuses on improvements to the **`InteractsWithSqlViewMigration`** trait, which simplifies SQL view management in Laravel migrations.
+
+#### Key Updates in v1.0.1:
+
+1. **InteractsWithSqlViewMigration Trait**:
+   - Automates the process of managing SQL views during migrations.
+   - Supports the use of external SQL files to create and drop views.
+   - Ensures better error handling with exceptions when SQL files are missing.
+   - Customizable filenames for both creating and dropping views via `getUpFilename()` and `getDownFilename()` methods.
+   
+
+#### Installation:
+
+To update to v1.0.1, run:
+
+```bash
+composer update cleaniquecoders/traitify
+
+```
+#### Documentation:
+
+For more details on how to use the `InteractsWithSqlViewMigration` trait, please refer to the [GitHub repository](https://github.com/cleaniquecoders/traitify).
+
+
+---
+
+This update enhances how SQL views are handled in migrations, making it easier to maintain and organize SQL scripts in your Laravel projects.
+
+**Full Changelog**: https://github.com/cleaniquecoders/traitify/compare/v1.0.0...v1.0.1
+
 ## v1.0.0 - 2024-10-15
 
 ### Release Notes for Traitify v1.0.0
@@ -93,6 +129,7 @@ You can install the package via Composer:
 
 ```bash
 composer require cleaniquecoders/traitify
+
 
 ```
 #### Documentation:
