@@ -6,14 +6,14 @@ uses(TestCase::class)->in(__DIR__);
 
 use Illuminate\Support\Facades\Route;
 
-if (! function_exists('listRoutes')) {
+if (! function_exists('routes')) {
     /**
      * List all registered routes for debugging in a structured format.
      *
      * @param  bool  $dump  Whether to dump the routes to the console.
      * @return \Illuminate\Support\Collection A collection of routes with details.
      */
-    function listRoutes(bool $dump = false)
+    function routes(bool $dump = false)
     {
         $routes = collect(Route::getRoutes())->map(function ($route) {
             return [
