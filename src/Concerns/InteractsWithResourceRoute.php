@@ -20,6 +20,9 @@ trait InteractsWithResourceRoute
 
     public function getUrlRoutePrefix()
     {
-        return property_exists($this, 'url_route_prefix') ? $this->url_route_prefix.'.' : '';
+        return
+            property_exists($this, 'url_route_prefix') && ! empty($this->url_route_prefix)
+            ? $this->url_route_prefix.'.'
+            : '';
     }
 }
