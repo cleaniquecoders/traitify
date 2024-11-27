@@ -1,6 +1,6 @@
 <?php
 
-namespace CleaniqueCoders\Traitify\Concerns;
+namespace App\Concerns;
 
 trait InteractsWithResourceRoute
 {
@@ -13,6 +13,13 @@ trait InteractsWithResourceRoute
 
     public function getUrlRouteBaseName()
     {
-        return str(get_called_class())->classBasename()->kebab()->plural()->toString();
+        return
+            $this->getUrlRoutePrefix().
+            str(get_called_class())->classBasename()->kebab()->plural()->toString();
+    }
+
+    public function getUrlRoutePrefix()
+    {
+        return property_exists($this, 'url_route_prefix') ? $this->url_route_prefix.'.' : '';
     }
 }
