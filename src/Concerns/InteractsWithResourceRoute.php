@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Concerns;
+namespace CleaniqueCoders\Traitify\Concerns;
 
 trait InteractsWithResourceRoute
 {
