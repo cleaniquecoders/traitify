@@ -2,6 +2,12 @@
 
 All notable changes to `Traitify` will be documented in this file.
 
+## v1.0.2 - 2024-11-27
+
+- Added #1
+
+**Full Changelog**: https://github.com/cleaniquecoders/traitify/compare/v1.0.1...v1.0.2
+
 ## v1.0.1 - 2024-10-16
 
 ### Traitify v1.0.1 Release Notes
@@ -25,6 +31,7 @@ To update to v1.0.1, run:
 
 ```bash
 composer update cleaniquecoders/traitify
+
 
 ```
 #### Documentation:
@@ -129,6 +136,7 @@ You can install the package via Composer:
 
 ```bash
 composer require cleaniquecoders/traitify
+
 
 
 ```
