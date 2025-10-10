@@ -34,6 +34,7 @@ Below are the available traits under the `src/Concerns` directory:
 - **InteractsWithMeta**: Provides functionality for managing meta fields.
 - **InteractsWithResourceRoute**: Adds support for handling resource routes.
 - **InteractsWithSearchable**: Adds searching capabilities to your models or queries.
+- **InteractsWithSlug**: Automatically generates and manages slugs for your models.
 - **InteractsWithToken**: Handles operations related to tokens.
 - **InteractsWithUser**: Provides methods to interact with users.
 - **InteractsWithUuid**: Adds UUID support to your models or other classes.
