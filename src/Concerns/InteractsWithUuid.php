@@ -5,15 +5,25 @@ namespace CleaniqueCoders\Traitify\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 
 trait InteractsWithUuid
 {
+    use HasGeneratorResolver;
+
     public static function bootInteractsWithUuid()
     {
         static::creating(function (Model $model) {
             if (Schema::hasColumn($model->getTable(), $model->getUuidColumnName()) && is_null($model->{$model->getUuidColumnName()})) {
-                $model->{$model->getUuidColumnName()} = Str::orderedUuid();
+                $generator = $model->resolveGenerator(
+                    'uuid',
+                    'uuidGenerator',
+                    'uuidGeneratorConfig'
+                );
+
+                $model->{$model->getUuidColumnName()} = $generator->generate([
+                    'model' => $model,
+                    'column' => $model->getUuidColumnName(),
+                ]);
             }
         });
     }
@@ -31,7 +41,7 @@ trait InteractsWithUuid
      */
     public function getUuidColumnName(): string
     {
-        return isset($this->uuid_column) ? $this->uuid_column : 'uuid';
+        return $this->uuid_column ?? 'uuid';
     }
 
     /**

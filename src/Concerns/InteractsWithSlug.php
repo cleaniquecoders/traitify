@@ -5,17 +5,28 @@ namespace CleaniqueCoders\Traitify\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 
 trait InteractsWithSlug
 {
+    use HasGeneratorResolver;
+
     public static function bootInteractsWithSlug()
     {
         static::creating(function (Model $model) {
             if (Schema::hasColumn($model->getTable(), $model->getSlugColumnName()) &&
                 empty($model->{$model->getSlugColumnName()}) &&
                 ! empty($model->{$model->getSlugSourceColumnName()})) {
-                $model->{$model->getSlugColumnName()} = Str::slug($model->{$model->getSlugSourceColumnName()});
+                $generator = $model->resolveGenerator(
+                    'slug',
+                    'slugGenerator',
+                    'slugGeneratorConfig'
+                );
+
+                $model->{$model->getSlugColumnName()} = $generator->generate([
+                    'model' => $model,
+                    'column' => $model->getSlugColumnName(),
+                    'source' => $model->{$model->getSlugSourceColumnName()},
+                ]);
             }
         });
 
@@ -24,7 +35,17 @@ trait InteractsWithSlug
                 $model->isDirty($model->getSlugSourceColumnName()) &&
                 empty($model->{$model->getSlugColumnName()}) &&
                 ! empty($model->{$model->getSlugSourceColumnName()})) {
-                $model->{$model->getSlugColumnName()} = Str::slug($model->{$model->getSlugSourceColumnName()});
+                $generator = $model->resolveGenerator(
+                    'slug',
+                    'slugGenerator',
+                    'slugGeneratorConfig'
+                );
+
+                $model->{$model->getSlugColumnName()} = $generator->generate([
+                    'model' => $model,
+                    'column' => $model->getSlugColumnName(),
+                    'source' => $model->{$model->getSlugSourceColumnName()},
+                ]);
             }
         });
     }
@@ -34,7 +55,7 @@ trait InteractsWithSlug
      */
     public function getSlugColumnName(): string
     {
-        return isset($this->slug_column) ? $this->slug_column : 'slug';
+        return $this->slug_column ?? 'slug';
     }
 
     /**
@@ -42,7 +63,7 @@ trait InteractsWithSlug
      */
     public function getSlugSourceColumnName(): string
     {
-        return isset($this->slug_source_column) ? $this->slug_source_column : 'name';
+        return $this->slug_source_column ?? 'name';
     }
 
     /**

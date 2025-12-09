@@ -5,15 +5,25 @@ namespace CleaniqueCoders\Traitify\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 
 trait InteractsWithToken
 {
+    use HasGeneratorResolver;
+
     public static function bootInteractsWithToken()
     {
         static::creating(function (Model $model) {
             if (Schema::hasColumn($model->getTable(), $model->getTokenColumn()) && is_null($model->{$model->getTokenColumn()})) {
-                $model->{$model->getTokenColumn()} = Str::random(128);
+                $generator = $model->resolveGenerator(
+                    'token',
+                    'tokenGenerator',
+                    'tokenGeneratorConfig'
+                );
+
+                $model->{$model->getTokenColumn()} = $generator->generate([
+                    'model' => $model,
+                    'column' => $model->getTokenColumn(),
+                ]);
             }
         });
     }
@@ -23,7 +33,7 @@ trait InteractsWithToken
      */
     public function getTokenColumn(): string
     {
-        return isset($this->token_column) ? $this->token_column : 'token';
+        return $this->token_column ?? 'token';
     }
 
     /**
