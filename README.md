@@ -38,6 +38,7 @@ Below are the available traits under the `src/Concerns` directory:
 - **InteractsWithToken**: Handles operations related to tokens.
 - **InteractsWithUser**: Provides methods to interact with users.
 - **InteractsWithUuid**: Adds UUID support to your models or other classes.
+- **InteractsWithTags**: Allow interactions with tag field (JSON Data Type)
 
 ### Contracts
 

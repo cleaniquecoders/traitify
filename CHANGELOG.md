@@ -2,6 +2,14 @@
 
 All notable changes to `Traitify` will be documented in this file.
 
+## Added Interact with Tag - 2025-11-01
+
+See [here](https://github.com/cleaniquecoders/traitify/blob/main/docs/interacts-with-tags.md) for more details.
+
+## Added Interaction with Slug - 2025-10-10
+
+**Full Changelog**: https://github.com/cleaniquecoders/traitify/compare/1.1.0...1.2.0
+
 ## 1.1.0 - 2025-05-01
 
 **Full Changelog**: https://github.com/cleaniquecoders/traitify/compare/v1.0.2...1.1.0
@@ -35,6 +43,8 @@ To update to v1.0.1, run:
 
 ```bash
 composer update cleaniquecoders/traitify
+
+
 
 
 
@@ -141,6 +151,8 @@ You can install the package via Composer:
 
 ```bash
 composer require cleaniquecoders/traitify
+
+
 
 
 
