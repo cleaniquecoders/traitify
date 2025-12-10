@@ -44,7 +44,7 @@ use CleaniqueCoders\Traitify\Concerns\InteractsWithTags;
 class Post extends Model
 {
     use InteractsWithTags;
-    
+
     protected $fillable = ['title', 'tags'];
 }
 ```
@@ -57,7 +57,7 @@ By default, the trait uses `tags` as the column name. You can customize it:
 class Post extends Model
 {
     use InteractsWithTags;
-    
+
     protected $tags_column = 'categories'; // Custom column name
 }
 ```
@@ -244,14 +244,14 @@ public function store(Request $request)
         'title' => 'required|string',
         'tags' => 'nullable|string', // or 'array'
     ]);
-    
+
     $post = Post::create([
         'title' => $validated['title'],
     ]);
-    
+
     // Tags from comma-separated input
     $post->setTags($validated['tags'])->save();
-    
+
     return redirect()->route('posts.show', $post);
 }
 ```
@@ -333,11 +333,13 @@ The trait uses Laravel's JSON query methods, which work with:
 For better query performance on large datasets, consider adding indexes:
 
 **MySQL:**
+
 ```sql
 ALTER TABLE posts ADD INDEX idx_tags ((CAST(tags AS CHAR(255) ARRAY)));
 ```
 
 **PostgreSQL:**
+
 ```sql
 CREATE INDEX idx_tags ON posts USING GIN (tags);
 ```
@@ -374,36 +376,36 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class InteractsWithTagsTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /** @test */
     public function it_can_set_tags()
     {
         $post = Post::factory()->create();
         $post->setTags(['laravel', 'php'])->save();
-        
+
         $this->assertEquals(['laravel', 'php'], $post->getTags());
     }
-    
+
     /** @test */
     public function it_can_add_tags()
     {
         $post = Post::factory()->create();
         $post->setTags(['laravel'])->save();
         $post->addTags(['php'])->save();
-        
+
         $this->assertCount(2, $post->getTags());
         $this->assertTrue($post->hasAllTags(['laravel', 'php']));
     }
-    
+
     /** @test */
     public function it_can_query_by_tags()
     {
         Post::factory()->create()->setTags(['laravel'])->save();
         Post::factory()->create()->setTags(['php'])->save();
         Post::factory()->create()->setTags(['laravel', 'php'])->save();
-        
+
         $posts = Post::withAnyTags(['laravel'])->get();
-        
+
         $this->assertCount(2, $posts);
     }
 }
@@ -443,4 +445,4 @@ Post::withAnyTags(['laravel', 'php']); // ✅ Has either
 Post::withAllTags(['laravel', 'php']); // ✅ Has both
 ```
 
-If you discover any issues, please email support@cleaniquecoders.com or create an issue in the GitHub repository.
+If you discover any issues, please email <support@cleaniquecoders.com> or create an issue in the GitHub repository.

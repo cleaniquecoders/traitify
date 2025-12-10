@@ -1,99 +1,126 @@
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/cleaniquecoders/traitify.svg?style=flat-square)](https://packagist.org/packages/cleaniquecoders/traitify) [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cleaniquecoders/traitify/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/cleaniquecoders/traitify/actions?query=workflow%3Arun-tests+branch%3Amain) [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/cleaniquecoders/traitify/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/cleaniquecoders/traitify/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain) [![Total Downloads](https://img.shields.io/packagist/dt/cleaniquecoders/traitify.svg?style=flat-square)](https://packagist.org/packages/cleaniquecoders/traitify)
-
 # Traitify
 
-**Traitify** is a Laravel package designed to streamline and enhance your development process by providing a collection of reusable traits and contracts. It allows developers to easily integrate common functionalities into their Laravel applications while adhering to a consistent, maintainable codebase.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/cleaniquecoders/traitify.svg?style=flat-square)](https://packagist.org/packages/cleaniquecoders/traitify)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cleaniquecoders/traitify/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/cleaniquecoders/traitify/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/cleaniquecoders/traitify/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/cleaniquecoders/traitify/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/cleaniquecoders/traitify.svg?style=flat-square)](https://packagist.org/packages/cleaniquecoders/traitify)
 
-With **Traitify**, you can reduce boilerplate code, simplify repetitive tasks, and standardize behavior across your application. It offers a clean, modular approach to sharing common functionality through traits, while contracts provide flexibility and extensibility for more complex behavior patterns.
+A Laravel package that streamlines development with reusable traits, contracts, and a powerful value generator system. Reduce boilerplate, standardize behavior, and enhance your models with automatic UUID, token, and slug generation.
 
-## Key Features
+## ✨ Features
 
-- **Reusable Traits**: Simplify and standardize common functionalities such as logging, validation, and caching.
-- **Extensible Contracts**: Ensure your application is easily extendable with well-defined contracts.
-- **Modular and Customizable**: Pick and choose the traits and contracts you need for your specific project.
+- 🔧 **11 Reusable Traits** - UUID, Token, Slug, Meta, User, API, Search, and more
+- 🎨 **Customizable Generators** - Flexible token, UUID, and slug generation
+- ⚙️ **Three-Tier Configuration** - Model → Config → Default resolution
+- 🔌 **Extensible Architecture** - Create custom generators easily
+- 📦 **Zero Configuration** - Works out of the box with sensible defaults
+- ✅ **100% Tested** - Comprehensive test coverage with Pest PHP
 
-## Installation
-
-You can install the package via Composer:
+## 📦 Installation
 
 ```bash
 composer require cleaniquecoders/traitify
 ```
 
-## Usage
-
-This package provides a collection of reusable traits and contracts that can be easily integrated into your Laravel applications. You can use the traits to add common functionality to your models, controllers, or other classes, and the contracts to ensure consistent interfaces for your classes.
-
-### Traits
-
-Below are the available traits under the `src/Concerns` directory:
-
-- **InteractsWithApi**: Provides methods to interact with APIs.
-- **InteractsWithDetails**: Handles interactions with detailed data.
-- **InteractsWithEnum**: Facilitates the use of enums in your models or classes.
-- **InteractsWithMeta**: Provides functionality for managing meta fields.
-- **InteractsWithResourceRoute**: Adds support for handling resource routes.
-- **InteractsWithSearchable**: Adds searching capabilities to your models or queries.
-- **InteractsWithSlug**: Automatically generates and manages slugs for your models.
-- **InteractsWithToken**: Handles operations related to tokens.
-- **InteractsWithUser**: Provides methods to interact with users.
-- **InteractsWithUuid**: Adds UUID support to your models or other classes.
-- **InteractsWithTags**: Allow interactions with tag field (JSON Data Type)
-
-### Contracts
-
-Here are the available interfaces under the `src/Contracts` directory:
-
-- **Api**: Defines the structure for interacting with APIs.
-- **Builder**: Provides a contract for builder classes.
-- **Enum**: Ensures proper implementation of enums.
-- **Execute**: Defines an execution contract for action-based classes.
-- **Menu**: Provides a contract for building and managing menus.
-- **Processor**: Ensures the implementation of data processing workflows.
-
-### Example Usage
-
-You can easily incorporate these traits and contracts into your Laravel application like this:
+## 🚀 Quick Start
 
 ```php
-use CleaniqueCoders\Traitify\Concerns\InteractsWithApi;
-use CleaniqueCoders\Traitify\Contracts\Api;
+use CleaniqueCoders\Traitify\Concerns\InteractsWithUuid;
+use Illuminate\Database\Eloquent\Model;
 
-class ExampleClass implements Api
+class Post extends Model
 {
-    use InteractsWithApi;
+    use InteractsWithUuid;
 
-    // Class logic here
+    // UUID automatically generated on creation
 }
 ```
 
-For a full list of traits and contracts and detailed usage examples, explore the [Contracts](src/Contracts) and [Concerns](src/Concerns) directories.
+```php
+$post = Post::create(['title' => 'Hello World']);
+echo $post->uuid; // 9d9e8da7-78c3-4c9d-9f5e-5c8e4a2b1d3c
+```
 
-## Testing
+## 📚 Documentation
 
-To run the tests, use:
+- **[Documentation Home](docs/README.md)** - Complete documentation index
+- **[Getting Started](docs/01-getting-started/README.md)** - Installation and setup
+- **[Architecture](docs/02-architecture/README.md)** - System design and patterns
+- **[Traits Reference](docs/03-traits/README.md)** - All available traits
+- **[Generators](docs/04-generators/README.md)** - Customizable value generation
+- **[Configuration](docs/05-configuration/README.md)** - Configuration options
+- **[Examples](docs/06-examples/README.md)** - Real-world usage examples
+- **[Advanced](docs/07-advanced/README.md)** - Extend and customize
+
+## 🔥 Popular Use Cases
+
+### Auto-Generate UUIDs
+```php
+use InteractsWithUuid;
+
+protected $uuid_column = 'id'; // Use UUID as primary key
+```
+
+### Secure API Tokens
+```php
+use InteractsWithToken;
+
+protected $tokenGeneratorConfig = [
+    'length' => 64,
+    'prefix' => 'sk_',
+    'pool' => 'hex',
+];
+```
+
+### SEO-Friendly Slugs
+```php
+use InteractsWithSlug;
+
+protected $slugGeneratorConfig = [
+    'unique' => true,
+    'max_length' => 100,
+];
+```
+
+## 🧪 Testing
 
 ```bash
 composer test
 ```
 
-## Changelog
+## 📖 Available Traits
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+| Trait | Purpose |
+|-------|---------|
+| `InteractsWithUuid` | Auto-generate UUIDs |
+| `InteractsWithToken` | Generate secure tokens |
+| `InteractsWithSlug` | Create URL-friendly slugs |
+| `InteractsWithMeta` | Manage JSON metadata |
+| `InteractsWithUser` | Auto-assign user relationships |
+| `InteractsWithApi` | API response formatting |
+| `InteractsWithSearchable` | Full-text search |
+| `InteractsWithDetails` | Eager load relationships |
+| `InteractsWithEnum` | Enum helper methods |
+| `InteractsWithResourceRoute` | Resource route generation |
+| `InteractsWithSqlViewMigration` | SQL view migrations |
 
-## Contributing
+## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING](CONTRIBUTING.md) for details on how to get involved.
+Contributions are welcome! Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Security Vulnerabilities
+## 🔒 Security
 
-If you discover any security issues, please review our [security policy](../../security/policy) for reporting vulnerabilities.
+If you discover any security issues, please review our [security policy](../../security/policy).
 
-## Credits
+## 📝 Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for recent changes.
+
+## 👥 Credits
 
 - [Nasrul Hazim Bin Mohamad](https://github.com/nasrulhazim)
 - [All Contributors](../../contributors)
 
-## License
+## 📄 License
 
-This package is open-sourced software licensed under the [MIT License](LICENSE.md).
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
