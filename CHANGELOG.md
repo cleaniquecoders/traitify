@@ -2,6 +2,182 @@
 
 All notable changes to `Traitify` will be documented in this file.
 
+## Customizable Value Generator System & Updating Documentation - 2025-12-10
+
+#### Documentation
+
+All documentations are updated and moved to [`docs/`](https://github.com/cleaniquecoders/traitify/tree/main/docs) directory.
+
+#### Customizable Value Generator System
+
+Introduced a flexible, extensible generator system for tokens, UUIDs, and slugs with three-tier configuration support.
+
+##### New Components
+
+**Contracts & Interfaces:**
+
+- `ValueGenerator` interface - Defines standard contract for all generators
+- Supports `generate()`, `validate()`, `getConfig()`, and `setConfig()` methods
+
+**Generator Classes:**
+
+- **TokenGenerator** - Configurable token generation
+  
+  - Multiple character pools: `auto`, `alpha`, `alphanumeric`, `numeric`, `hex`
+  - Configurable length (default: 128)
+  - Prefix/suffix support
+  - Uppercase option
+  
+- **UuidGenerator** - Multiple UUID version support
+  
+  - Versions: `ordered` (default), `v1`, `v3`, `v4`, `v5`
+  - Output formats: `string`, `binary`, `hex`
+  - Prefix/suffix support
+  - Custom namespace/name for v3/v5
+  
+- **SlugGenerator** - Advanced slug generation
+  
+  - Custom separators
+  - Language support
+  - Dictionary mappings
+  - Max length constraints
+  - Uniqueness checking
+  - Case preservation option
+  
+
+**Configuration System:**
+
+- New `config/traitify.php` configuration file
+- Three-tier resolution: Model Property → Config File → Default
+- Per-model generator customization via properties
+- App-wide defaults via config file
+
+**Architecture:**
+
+- `AbstractValueGenerator` - Base class with shared functionality
+- `HasGeneratorResolver` trait - Generator resolution logic
+- Dot notation config access support
+
+### 🔄 Enhancements
+
+#### Refactored Traits (Backward Compatible)
+
+- `InteractsWithToken` - Now uses configurable `TokenGenerator`
+- `InteractsWithUuid` - Now uses configurable `UuidGenerator`
+- `InteractsWithSlug` - Now uses configurable `SlugGenerator`
+
+#### Service Provider
+
+- Added config file publishing support via `hasConfigFile()`
+- Use `php artisan vendor:publish --tag=traitify-config` to publish
+
+### 📚 Usage Examples
+
+#### App-wide Configuration
+
+  ```php
+  // config/traitify.php
+'generators' => [
+    'token' => [
+        'class' => \CleaniqueCoders\Traitify\Generators\TokenGenerator::class,
+        'config' => [
+            'length' => 64,
+            'prefix' => 'API_',
+            'uppercase' => true,
+        ],
+    ],
+    'uuid' => [
+        'class' => \CleaniqueCoders\Traitify\Generators\UuidGenerator::class,
+        'config' => [
+            'version' => 'v4',
+            'format' => 'string',
+        ],
+    ],
+    'slug' => [
+        'class' => \CleaniqueCoders\Traitify\Generators\SlugGenerator::class,
+        'config' => [
+            'separator' => '_',
+            'max_length' => 100,
+            'unique' => true,
+        ],
+    ],
+],
+
+  ```
+Per-Model Customization
+
+```php
+  use CleaniqueCoders\Traitify\Concerns\InteractsWithToken;
+  use Illuminate\Database\Eloquent\Model;
+
+  class ApiKey extends Model
+  {
+      use InteractsWithToken;
+
+      // Option 1: Use a custom generator class
+      protected $tokenGenerator = \App\Generators\MyCustomTokenGenerator::class;
+
+      // Option 2: Configure the default generator for this model
+      protected $tokenGeneratorConfig = [
+          'length' => 32,
+          'pool' => 'hex',
+          'prefix' => 'sk_',
+      ];
+  }
+
+```
+Custom Generator Implementation
+
+```php
+  use CleaniqueCoders\Traitify\Generators\AbstractValueGenerator;
+
+  class MyCustomTokenGenerator extends AbstractValueGenerator
+  {
+      protected function getDefaultConfig(): array
+      {
+          return [
+              'format' => 'custom',
+              'length' => 40,
+          ];
+      }
+
+      public function generate(array $context = []): mixed
+      {
+          // Your custom generation logic
+          $length = $this->getConfigValue('length', 40);
+          return bin2hex(random_bytes($length / 2));
+      }
+
+      public function validate(mixed $value, array $context = []): bool
+      {
+          // Your validation logic
+          return is_string($value) && strlen($value) === $this->getConfigValue('length', 40);
+      }
+  }
+
+```
+🔒 Backward Compatibility
+
+100% backward compatible - No breaking changes:
+
+- ✅ Existing models work without any changes
+- ✅ Default behavior unchanged (Token: 128 chars, UUID: ordered, Slug: from name)
+- ✅ All column customization properties still work ($token_column, $uuid_column, etc.)
+- ✅ No migration required
+- ✅ Opt-in enhancement - use new features when you need them
+
+🚀 Upgrade Guide
+
+No upgrade steps required! The changes are fully backward compatible.
+
+Optional: Publish the config file to customize generators app-wide:
+
+```bash
+  php artisan vendor:publish --tag=traitify-config
+
+```
+This will create `config/traitify.php` in your Laravel application.
+
 ## Added Interact with Tag - 2025-11-01
 
 See [here](https://github.com/cleaniquecoders/traitify/blob/main/docs/interacts-with-tags.md) for more details.
@@ -43,6 +219,7 @@ To update to v1.0.1, run:
 
 ```bash
 composer update cleaniquecoders/traitify
+
 
 
 
@@ -151,6 +328,7 @@ You can install the package via Composer:
 
 ```bash
 composer require cleaniquecoders/traitify
+
 
 
 
