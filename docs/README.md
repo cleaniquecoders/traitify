@@ -46,7 +46,7 @@ New to Traitify? Start with the [Installation Guide](01-getting-started/01-insta
 
 ## Popular Topics
 
-- [InteractsWithUuid](03-traits/01-overview.md#interactswit huuid) - Auto-generate UUIDs
+- [InteractsWithUuid](03-traits/01-overview.md#interactswithuuid) - Auto-generate UUIDs
 - [InteractsWithToken](03-traits/01-overview.md#interactswithtoken) - Generate secure tokens
 - [InteractsWithSlug](03-traits/01-overview.md#interactswithslug) - Create URL-friendly slugs
 - [InteractsWithTags](03-traits/02-interacts-with-tags.md) - Manage JSON tags
