@@ -3,8 +3,7 @@
     "allow": [
       "Bash(find:*)",
       "Bash(vendor/bin/pest:*)",
-      "Bash(chmod:*)",
-      "Bash(~/.claude/verify-docs-standards.sh)"
+      "Bash(markdownlint:*)"
     ]
   }
 }

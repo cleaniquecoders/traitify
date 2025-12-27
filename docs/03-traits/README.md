@@ -4,7 +4,7 @@ Comprehensive reference for all available Traitify traits.
 
 ## Overview
 
-Traitify provides 11 reusable traits that add common functionality to your Laravel models. From automatic value generation (UUID, tokens, slugs) to data management (meta, tags, users) and utilities (search, enums, API responses), these traits eliminate boilerplate and standardize behavior across your application.
+Traitify provides 12 reusable traits that add common functionality to your Laravel models and services. From automatic value generation (UUID, tokens, slugs) to data management (meta, tags, users) and utilities (search, enums, API responses), these traits eliminate boilerplate and standardize behavior across your application.
 
 ## Table of Contents
 
@@ -33,6 +33,10 @@ Summary of all 11 traits with quick examples, comparison table, and common usage
 - **[12. InteractsWithResourceRoute](12-interacts-with-resource-route.md)** - Resource route URLs
 - **[13. InteractsWithSqlViewMigration](13-interacts-with-sql-view-migration.md)** - SQL view migrations
 
+### Logging Traits
+
+- **[14. LogsOperations](14-logs-operations.md)** - Unified logging for operations
+
 ## Trait Categories
 
 ### Value Generation
@@ -58,6 +62,10 @@ Summary of all 11 traits with quick examples, comparison table, and common usage
 - **InteractsWithSearchable** - Case-insensitive search
 - **InteractsWithEnum** - PHP enum helper methods
 - **InteractsWithSqlViewMigration** - SQL view migration helpers
+
+### Logging
+
+- **LogsOperations** - Unified logging for Actions, Services, and Forms
 
 ## Related Documentation
 

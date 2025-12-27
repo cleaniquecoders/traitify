@@ -1,6 +1,6 @@
 # Traits Overview
 
-Traitify provides 11 reusable traits for common Laravel application needs.
+Traitify provides 12 reusable traits for common Laravel application needs.
 
 ## Value Generation Traits
 
@@ -207,6 +207,37 @@ class CreateUserStatsView extends Migration
 }
 ```
 
+## Logging Traits
+
+### LogsOperations
+
+Unified logging for Actions, Services, and Livewire Forms.
+
+**[Full Documentation →](14-logs-operations.md)**
+
+```php
+use CleaniqueCoders\Traitify\Concerns\LogsOperations;
+use CleaniqueCoders\Traitify\Contracts\HasLogging;
+
+class OrderService implements HasLogging
+{
+    use LogsOperations;
+
+    public function process(array $data)
+    {
+        $this->logOperationStart('Order processing');
+
+        try {
+            // Process order...
+            $this->logOperationSuccess('Order processing');
+        } catch (Throwable $e) {
+            $this->logException($e, 'Order processing');
+            throw $e;
+        }
+    }
+}
+```
+
 ## Trait Comparison
 
 | Trait | Auto-Fill | Query Scope | Config | Custom Column |
@@ -222,6 +253,7 @@ class CreateUserStatsView extends Migration
 | InteractsWithSearchable | ❌ | ✅ | ❌ | ✅ |
 | InteractsWithEnum | ❌ | ❌ | ❌ | ❌ |
 | InteractsWithSqlViewMigration | ❌ | ❌ | ❌ | ❌ |
+| LogsOperations | ❌ | ❌ | ❌ | ❌ |
 
 ## Common Patterns
 
@@ -279,6 +311,10 @@ class Product extends Model
 - **[InteractsWithSearchable](08-interacts-with-searchable.md)** - Case-insensitive search across fields
 - **[InteractsWithEnum](11-interacts-with-enum.md)** - PHP enum helper methods for values and labels
 - **[InteractsWithSqlViewMigration](13-interacts-with-sql-view-migration.md)** - SQL view migration helpers
+
+### Logging Traits
+
+- **[LogsOperations](14-logs-operations.md)** - Unified logging for Actions, Services, and Forms
 
 ## Next Steps
 
