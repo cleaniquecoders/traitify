@@ -2,6 +2,100 @@
 
 All notable changes to `Traitify` will be documented in this file.
 
+## 1.3.1 - 2025-12-27
+
+### 1.3.1 - Unified Logging Trait - 2025-12-27
+
+#### New Features
+
+##### LogsOperations Trait
+
+Unified logging trait for consistent operation logging across Actions, Services, and Livewire Forms.
+
+**New Contract:**
+
+- `HasLogging` - Interface defining core logging methods
+
+**New Trait:**
+
+- `LogsOperations` - Combines and standardizes logging functionality
+
+###### Core Logging Methods
+
+- `logDebug()`, `logInfo()`, `logWarning()`, `logError()` - Basic log levels
+- `logException()` - Exception logging with full stack trace
+
+###### Operation Lifecycle
+
+- `logOperationStart()` - Mark operation beginning
+- `logOperationSuccess()` - Mark successful completion
+- `logOperationFailure()` - Mark operation failure
+
+###### Method Lifecycle
+
+- `logMethodEntry()` - Log method entry with sanitized parameters
+- `logMethodSuccess()` - Log method success with summarized result
+- `logMethodFailure()` - Log method failure
+
+###### Form-Specific Logging
+
+- `logValidation()` - Log validation passed/failed
+- `logStateChange()` - Log field state changes
+
+###### Service-Specific Logging
+
+- `logApiCall()` - Log outgoing API requests
+- `logApiResponse()` - Log API responses (debug for success, warning for errors)
+- `logCacheOperation()` - Log cache hits/misses
+
+###### Context Helpers
+
+- `dbContext()` - Create database operation context
+- `externalServiceContext()` - Create external service context
+
+###### Automatic Features
+
+- **Context Enrichment** - Automatically includes class name, user_id, uuid, and state keys
+- **Sensitive Data Sanitization** - Redacts passwords, tokens, API keys, credentials
+- **Data Summarization** - Summarizes large arrays/objects to prevent log bloat
+
+##### Usage Example
+
+ ```php
+ use CleaniqueCoders\Traitify\Concerns\LogsOperations;
+use CleaniqueCoders\Traitify\Contracts\HasLogging;
+
+class OrderService implements HasLogging
+{
+    use LogsOperations;
+
+    public function processOrder(array $data)
+    {
+        $this->logOperationStart('Order processing');
+
+        try {
+            // Process order...
+            $this->logOperationSuccess('Order processing');
+        } catch (Throwable $e) {
+            $this->logException($e, 'Order processing');
+            throw $e;
+        }
+    }
+}
+
+ ```
+##### Documentation
+
+- Added docs/03-traits/14-logs-operations.md - Full documentation for the trait
+- Updated docs/03-traits/README.md - Added LogsOperations entry
+- Updated docs/03-traits/01-overview.md - Added LogsOperations section
+
+##### Tests
+
+- Added 33 new unit tests covering all logging functionality
+- Tests include: basic logging, exception handling, lifecycle logging, validation, API logging, cache logging, context
+  enrichment, sensitive data sanitization, and data summarization
+
 ## Customizable Value Generator System & Updating Documentation - 2025-12-10
 
 #### Documentation
@@ -78,30 +172,31 @@ Introduced a flexible, extensible generator system for tokens, UUIDs, and slugs 
   ```php
   // config/traitify.php
 'generators' => [
-    'token' => [
-        'class' => \CleaniqueCoders\Traitify\Generators\TokenGenerator::class,
-        'config' => [
-            'length' => 64,
-            'prefix' => 'API_',
-            'uppercase' => true,
-        ],
-    ],
-    'uuid' => [
-        'class' => \CleaniqueCoders\Traitify\Generators\UuidGenerator::class,
-        'config' => [
-            'version' => 'v4',
-            'format' => 'string',
-        ],
-    ],
-    'slug' => [
-        'class' => \CleaniqueCoders\Traitify\Generators\SlugGenerator::class,
-        'config' => [
-            'separator' => '_',
-            'max_length' => 100,
-            'unique' => true,
-        ],
-    ],
+  'token' => [
+      'class' => \CleaniqueCoders\Traitify\Generators\TokenGenerator::class,
+      'config' => [
+          'length' => 64,
+          'prefix' => 'API_',
+          'uppercase' => true,
+      ],
+  ],
+  'uuid' => [
+      'class' => \CleaniqueCoders\Traitify\Generators\UuidGenerator::class,
+      'config' => [
+          'version' => 'v4',
+          'format' => 'string',
+      ],
+  ],
+  'slug' => [
+      'class' => \CleaniqueCoders\Traitify\Generators\SlugGenerator::class,
+      'config' => [
+          'separator' => '_',
+          'max_length' => 100,
+          'unique' => true,
+      ],
+  ],
 ],
+
 
   ```
 Per-Model Customization
@@ -124,6 +219,7 @@ Per-Model Customization
           'prefix' => 'sk_',
       ];
   }
+
 
 ```
 Custom Generator Implementation
@@ -155,6 +251,7 @@ Custom Generator Implementation
       }
   }
 
+
 ```
 🔒 Backward Compatibility
 
@@ -174,6 +271,7 @@ Optional: Publish the config file to customize generators app-wide:
 
 ```bash
   php artisan vendor:publish --tag=traitify-config
+
 
 ```
 This will create `config/traitify.php` in your Laravel application.
@@ -219,6 +317,7 @@ To update to v1.0.1, run:
 
 ```bash
 composer update cleaniquecoders/traitify
+
 
 
 
@@ -328,6 +427,7 @@ You can install the package via Composer:
 
 ```bash
 composer require cleaniquecoders/traitify
+
 
 
 
