@@ -2,6 +2,24 @@
 
 All notable changes to `Traitify` will be documented in this file.
 
+## 1.4.0 - 2026-03-30
+
+### What's Changed
+
+#### Added
+
+- Laravel 13 support (`illuminate/contracts: ^13.0`)
+- PHPUnit 12 compatibility
+- Pest 4 support
+
+#### Changed
+
+- Updated `phpunit.xml.dist` — removed deprecated PHPUnit 10 attributes
+- Updated CI workflow for Laravel 12 matrix
+- Updated dev dependencies (larastan ^3.0, phpstan plugins ^2.0)
+
+**Full Changelog**: https://github.com/cleaniquecoders/traitify/compare/1.3.1...1.4.0
+
 ## 1.3.1 - 2025-12-27
 
 ### 1.3.1 - Unified Logging Trait - 2025-12-27
@@ -67,21 +85,22 @@ use CleaniqueCoders\Traitify\Contracts\HasLogging;
 
 class OrderService implements HasLogging
 {
-    use LogsOperations;
+   use LogsOperations;
 
-    public function processOrder(array $data)
-    {
-        $this->logOperationStart('Order processing');
+   public function processOrder(array $data)
+   {
+       $this->logOperationStart('Order processing');
 
-        try {
-            // Process order...
-            $this->logOperationSuccess('Order processing');
-        } catch (Throwable $e) {
-            $this->logException($e, 'Order processing');
-            throw $e;
-        }
-    }
+       try {
+           // Process order...
+           $this->logOperationSuccess('Order processing');
+       } catch (Throwable $e) {
+           $this->logException($e, 'Order processing');
+           throw $e;
+       }
+   }
 }
+
 
  ```
 ##### Documentation
@@ -172,30 +191,31 @@ Introduced a flexible, extensible generator system for tokens, UUIDs, and slugs 
   ```php
   // config/traitify.php
 'generators' => [
-  'token' => [
-      'class' => \CleaniqueCoders\Traitify\Generators\TokenGenerator::class,
-      'config' => [
-          'length' => 64,
-          'prefix' => 'API_',
-          'uppercase' => true,
-      ],
-  ],
-  'uuid' => [
-      'class' => \CleaniqueCoders\Traitify\Generators\UuidGenerator::class,
-      'config' => [
-          'version' => 'v4',
-          'format' => 'string',
-      ],
-  ],
-  'slug' => [
-      'class' => \CleaniqueCoders\Traitify\Generators\SlugGenerator::class,
-      'config' => [
-          'separator' => '_',
-          'max_length' => 100,
-          'unique' => true,
-      ],
-  ],
+'token' => [
+    'class' => \CleaniqueCoders\Traitify\Generators\TokenGenerator::class,
+    'config' => [
+        'length' => 64,
+        'prefix' => 'API_',
+        'uppercase' => true,
+    ],
 ],
+'uuid' => [
+    'class' => \CleaniqueCoders\Traitify\Generators\UuidGenerator::class,
+    'config' => [
+        'version' => 'v4',
+        'format' => 'string',
+    ],
+],
+'slug' => [
+    'class' => \CleaniqueCoders\Traitify\Generators\SlugGenerator::class,
+    'config' => [
+        'separator' => '_',
+        'max_length' => 100,
+        'unique' => true,
+    ],
+],
+],
+
 
 
   ```
@@ -219,6 +239,7 @@ Per-Model Customization
           'prefix' => 'sk_',
       ];
   }
+
 
 
 ```
@@ -252,6 +273,7 @@ Custom Generator Implementation
   }
 
 
+
 ```
 🔒 Backward Compatibility
 
@@ -271,6 +293,7 @@ Optional: Publish the config file to customize generators app-wide:
 
 ```bash
   php artisan vendor:publish --tag=traitify-config
+
 
 
 ```
@@ -317,6 +340,7 @@ To update to v1.0.1, run:
 
 ```bash
 composer update cleaniquecoders/traitify
+
 
 
 
@@ -427,6 +451,7 @@ You can install the package via Composer:
 
 ```bash
 composer require cleaniquecoders/traitify
+
 
 
 
